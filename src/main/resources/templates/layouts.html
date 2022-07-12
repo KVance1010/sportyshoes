@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- Mainpage header -->
+
+<head th:fragment="head">
+	<!-- this will allow us to link to boot strap that we specified in the pom file-->
+	<meta http-equiv="Content-Type" context="text/html; charset=UTF-8">
+	<!-- this will allow us to see it on mobile -->
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+	<title> [[${pageTitle}]]</title>
+	<!-- reference to bootstrap-->
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{fontawesome/all.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+	<!-- Mainpage Navigation bar -->
+	<div th:fragment="nav-bar-header">
+		<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+			<a class="navbar-brand" th:href="@{/}">Sporty Shoes</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="topNavbar">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/users}">Users</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/products}">Products</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/customers}">Customers</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/orders}">Orders</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/shipping}">Shipping</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/reports]}">Reports</a>
+					</li>
+
+				</ul>
+			</div>
+		</nav>
+	</div>
+
+	<!-- footer -->
+	<div th:fragment="footer" class="text-center">
+		<p> Sporty Shoes - Copyright &copy; Sporty Shoes</p>
+	</div>
+
+</body>
+
+</html>
