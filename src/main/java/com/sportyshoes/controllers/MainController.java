@@ -12,4 +12,10 @@ public class MainController {
 		model.addAttribute("pageTitle", "Home - Sporty Shoes");
 		return "index";	
 	}
+	
+	@GetMapping("/login")
+	public String viewLoginPage(Model model) {
+		model.addAttribute("pageTitle", "Login Page");
+		return"login";
+	}
 }
