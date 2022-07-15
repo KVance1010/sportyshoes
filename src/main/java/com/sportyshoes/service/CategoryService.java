@@ -25,7 +25,7 @@ import com.sportyshoes.model.Category;
 @Service
 @Transactional
 public class CategoryService {
-	public static final int ROOT_CATEGORIES_PER_PAGE = 4;
+	public static final int ROOT_CATEGORIES_PER_PAGE = 5;
 
 	@Autowired
 	private CategoryRepository repo;

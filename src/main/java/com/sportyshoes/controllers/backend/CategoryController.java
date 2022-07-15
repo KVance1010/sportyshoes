@@ -27,12 +27,13 @@ public class CategoryController {
 	private CategoryService service;
 
 	@GetMapping("/categories")
-	public String listFirstPage(@Param("sortDir") String sortDir, Model model) {
-		return listByPage(1, sortDir, null, model);
+	public String listFirstPage(Model model) {
+		return listByPage(1, "asc", null, model);
 	}
 
 	@GetMapping("/categories/page/{pageNum}")
-	public String listByPage(@PathVariable(name = "pageNum") int pageNum, @Param("sortDir") String sortDir,
+	public String listByPage(@PathVariable(name = "pageNum") int pageNum,
+			@Param("sortDir") String sortDir,
 			@Param("keyword") String keyword, Model model) {
 		if (sortDir == null || sortDir.isEmpty()) {
 			sortDir = "asc";
@@ -61,7 +62,7 @@ public class CategoryController {
 		model.addAttribute("listCategories", listCategories);
 		model.addAttribute("reverseSortDir", reverseSortDir);
 
-		return "categories/categories";
+		return "/categories/categories";
 	}
 
 	@GetMapping("/categories/new")
@@ -72,22 +73,24 @@ public class CategoryController {
 		model.addAttribute("listCategories", listCategories);
 		model.addAttribute("pageTitle", "Create New Category");
 
-		return "categories/category_form";
+		return "/categories/category_form";
 	}
 
 	@PostMapping("/categories/save")
 	public String saveCategory(Category category, @RequestParam("fileImage") MultipartFile multipartFile,
 			RedirectAttributes ra) throws IOException {
+		
 		if (!multipartFile.isEmpty()) {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			category.setImage(fileName);
 
 			Category savedCategory = service.save(category);
-			String uploadDir = "../category-images/" + savedCategory.getId();
+			String uploadDir = "category-images/" + savedCategory.getId();
 
 			FileUploadUtil.cleanDir(uploadDir);
 			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 		} else {
+			if (category.getImage().isEmpty()) category.setImage(null);
 			service.save(category);
 		}
 
@@ -128,7 +131,7 @@ public class CategoryController {
 			RedirectAttributes redirectAttributes) {
 		try {
 			service.delete(id);
-			String categoryDir = "../category-images/" + id;
+			String categoryDir = "*/category-images/" + id;
 			FileUploadUtil.removeDir(categoryDir);
 
 			redirectAttributes.addFlashAttribute("message", "The category ID " + id + " has been deleted successfully");

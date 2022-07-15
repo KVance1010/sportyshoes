@@ -24,10 +24,10 @@ public class Category {
 	@Column(length = 128, nullable = false, unique = true)
 	private String name;
 
-	@Column(length = 64, nullable = false, unique = true)
+	@Column(length = 64, unique = true)
 	private String url;
 
-	@Column(length = 128, nullable = false)
+	@Column(length = 128)
 	private String image;
 
 	private boolean enabled;

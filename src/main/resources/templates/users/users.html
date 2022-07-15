@@ -20,14 +20,11 @@
 					</th>
 					
 					<th>Photos</th>
-					
+					<th th:replace="layouts :: column_link('/users', 'firstName', 'First Name', 'none')" />
+					<th th:replace="layouts :: column_link('/users', 'lastName', 'Last Name', 'none')" />
 					<th class="hideable-column">
 						<th th:replace="layouts :: column_link('/users', 'email', 'E-mail', 'tag')" />
 					</th>
-					
-					<th th:replace="layouts :: column_link('/users', 'firstName', 'First Name', 'none')" />
-					<th th:replace="layouts :: column_link('/users', 'lastName', 'Last Name', 'none')" />
-					
 					<th>Roles</th>
 					<th th:replace="layouts :: column_link('/users', 'enabled', 'Enabled', 'none')" />
 					<th></th>
@@ -39,9 +36,9 @@
 					<td>
 						<div th:replace="layouts :: user_photos" />
 					</td>
-					<td class="hideable-column">[[${user.email}]]</td>
 					<td>[[${user.firstName}]]</td>
 					<td>[[${user.lastName}]]</td>
+					<td class="hideable-column">[[${user.email}]]</td>
 					<td>[[${user.roles}]]</td>
 					
 					<td>

@@ -38,11 +38,9 @@ public class UserController {
 			@Param("sortField") String sortField, @Param("sortDir") String sortDir,
 			@Param("keyword") String keyword
 			) {
-		System.out.println("Sort Field: " + sortField);
-		System.out.println("Sort Order: " + sortDir);
+
 		
-		Page<User> page = service.listByPage(pageNum, sortField, sortDir, keyword);
-		
+		Page<User> page = service.listByPage(pageNum, sortField, sortDir, keyword);		
 		List<User> listUsers = page.getContent();
 		
 		long startCount = (pageNum - 1) * UserService.USERS_PER_PAGE + 1;
@@ -89,8 +87,8 @@ public class UserController {
 		if (!multipartFile.isEmpty()) {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			user.setPhotos(fileName);
-			User savedUser = service.save(user);
 			
+			User savedUser = service.save(user);
 			String uploadDir = "user-photos/" + savedUser.getId();
 			
 			FileUploadUtil.cleanDir(uploadDir);

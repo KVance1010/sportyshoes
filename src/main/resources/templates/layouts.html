@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <!-- Mainpage header -->
-
 <head th:fragment="page_head(title)">
 	<meta http-equiv="Content-Type" context="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
@@ -101,7 +100,7 @@
 		</nav>
 	</div>
 
-	<!-- Modal dialog box -->
+<!-- Modal dialog box -->
 	<div th:fragment="modal_dialog" class="modal fade text-center" id="modalDialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -119,7 +118,7 @@
 		</div>
 	</div>
 
-	<!-- Confirm Modal dialog box -->
+<!-- Confirm Modal dialog box -->
 	<div th:fragment="confirm_modal" class="modal fade text-center" id="confirmModal">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -138,7 +137,7 @@
 		</div>
 	</div>
 
-	<!--  -->
+<!-- column up and down arrows fontawesome -->
 	<th th:fragment="column_link(moduleURL, fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
 		<a class="text-white"
 			th:href="@{${moduleURL} + '/page/' + ${currentPage} + '?sortField=' + ${fieldName}  +'&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
@@ -147,16 +146,19 @@
 		<span th:if="${sortField == fieldName}"
 			th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
 	</th>
-	<!--  -->
+
+<!--  -->
 	<a th:fragment="page_link(moduleURL, pageNum, label)" class="page-link"
 		th:href="@{${moduleURL} + '/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
-	<!-- check for photos -->
+
+<!-- check for photos users-->
 	<div th:fragment="user_photos" th:remove="tag">
 		<span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon-silver"></span>
 		<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}" style="width: 100px" />
 	</div>
 
-	<!--  -->
+
+<!-- Enable checkbox Fontawesome -->
 	<div th:fragment="status(enabled, entityName, entityURL)" th:remove="tag">
 		<a th:if="${enabled == true}" class="fas fa-check-circle fa-2x icon-green"
 			th:href="@{${entityURL} + '/enabled/false'}" th:title="'Disable this ' + ${entityName}"></a>
@@ -164,12 +166,14 @@
 		<a th:if="${enabled == false}" class="fas fa-circle fa-2x icon-dark" th:href="@{${entityURL} + '/enabled/true'}"
 			th:title="'Enable this ' + ${entityName}"></a>
 	</div>
-	<!--  -->
+
+<!-- Edit fontAwesome link -->
 	<div th:fragment="edit(entityName, editURL)" th:remove="tag">
 		<a class="fas fa-edit fa-2x icon-green" th:href="@{${editURL}}" th:title="'Edit this ' + ${entityName}"></a>
 	</div>
 
-	<!--  -->
+
+<!-- Delete fontawesome link -->
 	<div th:fragment="delete(entityName, entityId, deleteURL, visible)" th:remove="tag">
 		<th:block th:if="${visible}">
 			<a class="fas fa-trash fa-2x icon-dark link-delete" th:href="@{${deleteURL}}" th:entityId="${entityId}"
@@ -177,7 +181,7 @@
 		</th:block>
 	</div>
 
-	<!-- Pagination of Users -->
+<!-- Pagination of Users -->
 	<div th:fragment="pagination(moduleURL, entityName)" th:remove="tag">
 		<div class="text-center m-1" th:if="${totalItems > 0}">
 			<span>Showing [[${entityName}]] # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>
@@ -209,7 +213,7 @@
 		</div>
 	</div>
 
-	<!-- -->
+<!-- Search box-->
 	<div th:fragment="search_form_and_message(moduleURL)">
 		<form th:action="@{${moduleURL}}" class="form-inline m-3">
 			<input type="hidden" name="sortField" th:value="${sortField}" />
@@ -230,7 +234,7 @@
 		</div>
 	</div>
 
-	<!-- footer -->
+<!-- footer -->
 	<div th:fragment="footer" class="text-center">
 		<p> Sporty Shoes - Copyright &copy; Sporty Shoes</p>
 	</div>
