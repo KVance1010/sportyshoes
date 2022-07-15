@@ -1,4 +1,4 @@
-package com.sportyshoes.security;
+package com.sportyshoes.config.security;
 
 import java.util.ArrayList;
 import java.util.Collection;

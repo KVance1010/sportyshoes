@@ -1,4 +1,4 @@
-package com.sportyshoes.security;
+package com.sportyshoes.config;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
