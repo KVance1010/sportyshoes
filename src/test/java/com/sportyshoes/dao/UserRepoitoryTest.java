@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 
 import com.sportyshoes.model.Role;
@@ -27,9 +28,11 @@ public class UserRepoitoryTest {
 	@Test
 	public void testCreateNewUserWithOneRole() {
 		Role roleAdmin = entityManager.find(Role.class, 1);
-		User userName = new User("vance@gmail.com", "password", "Kyle", "Vance");
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String rawPassword = "password";
+		String encodedPassword = passwordEncoder.encode(rawPassword);
+		User userName = new User("vance@gmail.com", true, encodedPassword, "Kyle", "Vance");
 		userName.addRole(roleAdmin);
-		
 		User savedUser = repo.save(userName);
 		assertThat(savedUser.getId()).isGreaterThan(0);
 	}

@@ -1,9 +1,11 @@
 package com.sportyshoes.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.sportyshoes.model.Role;
 
-public interface RoleRepository extends JpaRepository< Role, Integer> {
+@Repository
+public interface RoleRepository extends CrudRepository<Role, Integer> {
 
 }

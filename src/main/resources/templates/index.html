@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf.org.thymeleaf-extras-springsecurity5">
 
-<head th:replace="layouts :: head" />
+<head th:replace="layouts :: page_head('login-Admin')" />
 
 <body>
 	<div class="container-fluid">
 
 		<!-- Navigation bar -->
-		<div th:replace="layouts :: nav-bar-header"></div>
+		<div th:replace="layouts :: menu"></div>
 
 		<!-- logout button -->
 		<form th:action="@{/logout}" method="post" th:hidden=true name="logoutForm">
@@ -19,15 +19,6 @@
 		<div th:replace="layouts :: footer"></div>
 
 	</div>
-
-	<script type="text/javascript">
-		$(document).ready(function () {
-			$("#logoutLink").on("click", function(e) {
-				e.preventDefault();
-				document.logoutForm.submit();
-			});
-		});
-	</script>
 </body>
 
 </html>
