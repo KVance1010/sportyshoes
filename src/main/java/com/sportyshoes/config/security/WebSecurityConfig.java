@@ -23,19 +23,12 @@ public class WebSecurityConfig {
 
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/users/**").hasAuthority("Admin").antMatchers("/categories/**")
+		http.authorizeRequests().antMatchers("/users/**").hasAuthority("Admin").antMatchers("/products/**")
 				.hasAnyAuthority("Admin", "Manager").anyRequest().authenticated().and().formLogin().loginPage("/login")
 				.usernameParameter("email").permitAll().and().logout().permitAll().and().rememberMe()
 				.key("AbcDefgHijKlmnOpqrs_1234567890").tokenValiditySeconds(7 * 24 * 60 * 60);
-		;
 
-		// http.authorizeRequests().antMatchers("/users/**").hasAuthority("Admin").antMatchers("/categories/**")
-//				.hasAnyAuthority("Admin", "Manager").anyRequest().authenticated().and().formLogin().loginPage("/login")
-//				.usernameParameter("email").permitAll().and().logout().permitAll().and().rememberMe()
-//				.key("AbcDefgHijKlmnOpqrs_1234567890").tokenValiditySeconds(7 * 24 * 60 * 60);
-//		;
-
-//	    http.authorizeRequests().anyRequest().permitAll();
+	  //  http.authorizeRequests().anyRequest().permitAll();
 		return http.build();
 
 	}

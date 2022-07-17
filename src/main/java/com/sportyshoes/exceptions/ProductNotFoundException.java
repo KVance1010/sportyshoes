@@ -1,13 +1,13 @@
 package com.sportyshoes.exceptions;
 
-public class CategoryNotFoundException extends Exception {
+public class ProductNotFoundException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public CategoryNotFoundException(String message) {
+	public ProductNotFoundException(String message) {
 		super(message);
 	}
 

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layouts  :: page_head('Products - Shopme Admin')"></head>
+
+<body>
+	<div class="container-fluid">
+		<div th:replace="layouts :: menu"></div>
+		<div>
+			<h2>Manage Products</h2>
+			<a th:href="@{/products/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
+		</div>
+		<div th:replace="layouts  :: search_form_and_message('/products/page/1')"></div>
+
+		<div th:if="${message != null}" class="alert alert-success text-center">
+			[[${message}]]
+		</div>
+
+
+		<div class="full-details">
+			<table class="table table-bordered table-striped table-hover table-responsive-xl">
+				<thead class="thead-dark">
+					<tr>
+						<th>ID</th>
+						<th>Product Image</th>
+						<th th:replace="layouts  :: column_link('/products', 'name', 'Product Name', 'none')" />
+						<th th:replace="layouts :: column_link('/products', 'category', 'Category', 'none')" />
+						<th>Description</th>
+						<th>Price</th>
+						<th>Enabled</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="product : ${listProducts}">
+						<td th:text="${product.id}"></td>
+						<td>
+							<div>
+								<img th:src="@{${product.getImagePath}}" style="width: 100px" class="img-fluid" />
+							</div>
+						</td>
+						<td th:text="${product.name}"></td>
+						<td th:text="${product.category}"></td>
+						<td th:text="${product.description}"></td>
+						<td th:text="${product.price}"></td>
+						<td>
+							<div
+								th:replace="layouts  :: status(${product.enabled}, 'product', '/products/' + ${product.id})" />
+						</td>
+						<td>
+							<div th:replace="layouts  :: edit('product', '/products/edit/' + ${product.id})" />
+							&nbsp;
+							<div
+								th:replace="layouts  :: delete('product', ${product.id}, '/products/delete/' + ${product.id}, true)" />
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="less-details">
+			<div th:each="product : ${listProducts}" class="row m-1">
+				<div class="col-4">
+					<img th:src="@{${product.getImagePath}}" style="width: 100px" class="img-fluid" />
+				</div>
+				<div class="col-8">
+					<div>[[${product.name}]]</div>
+					<div class="mt-2">
+						<div
+							th:replace="layouts  :: status(${product.enabled}, 'product', '/products/' + ${product.id})">
+						</div>
+						&nbsp;
+						<div th:replace="layouts  :: edit('product', '/products/edit/' + ${product.id})"></div>
+						&nbsp;
+						<div
+							th:replace="layouts  :: delete('product', ${product.id}, '/products/delete/' + ${product.id}, true)">
+						</div>
+					</div>
+				</div>
+				<div>&nbsp;</div>
+			</div>
+		</div>
+
+		<div th:if="${keyword != null}" class="text-center">
+			<span>Search result does not show products, please try another search</span>
+			<div th:replace="layouts  :: pagination('/products', 'products')"></div>
+		</div>
+
+		<th:block th:unless="${keyword != null}">
+			<div th:replace="layouts  :: pagination('/products', 'top-level products')"></div>
+		</th:block>
+
+		<div th:replace="layouts  :: confirm_modal"></div>
+
+		<div th:replace="layouts  :: footer"></div>
+
+	</div>
+	<script th:src="@{/js/common_list.js}"></script>
+	<script type="text/javascript">
+		moduleUrl = "[[@{/products}]]";
+
+		$(document).ready(function () {
+			$(".link-delete").on("click", function (e) {
+				e.preventDefault();
+				showDeleteConfirmModal($(this), 'product');
+			});
+		});
+	</script>
+</body>
+
+
+</html>
