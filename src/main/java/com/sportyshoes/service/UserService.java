@@ -100,12 +100,9 @@ public class UserService {
 
 	public boolean isEmailUnique(Integer id, String email) {
 		User userByEmail = userRepo.getUserByEmail(email);
-
 		if (userByEmail == null)
 			return true;
-
 		boolean isCreatingNew = (id == null);
-
 		if (isCreatingNew) {
 			if (userByEmail != null)
 				return false;
@@ -114,7 +111,6 @@ public class UserService {
 				return false;
 			}
 		}
-
 		return true;
 	}
 
@@ -131,7 +127,6 @@ public class UserService {
 		if (countById == null || countById == 0) {
 			throw new UserNotFoundException("Could not find any user with ID " + id);
 		}
-
 		userRepo.deleteById(id);
 	}
 

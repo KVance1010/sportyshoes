@@ -15,7 +15,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 public class User {
 	@Id
@@ -33,6 +40,18 @@ public class User {
 
 	@Column(name = "last_name", length = 45, nullable = false)
 	private String lastName;
+	
+	@Column(name = "street_address", nullable = false)
+	private String streetAddress;
+	
+	@Column(name = "city", nullable = false)
+	private String city;
+	
+	@Column(name = "state", nullable = false)
+	private String state;
+	
+	@Column(name = "zip_code", nullable = false)
+	private String zipCode;
 
 	@Column(length = 64)
 	private String photos;
@@ -43,100 +62,30 @@ public class User {
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
-	public User() {
-	}
-
 	public User(String email, String password, String firstName, String lastName) {
 		this.email = email;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
-
 	
-
-	
-	public User(String email, boolean enabled, String password, String firstName, String lastName) {
+	public User(String email, boolean enabled, String password, String firstName, String lastName, String address,
+			String city,String state, String zip) {
 		super();
 		this.email = email;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.enabled = enabled;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getPhotos() {
-		return photos;
-	}
-
-	public void setPhotos(String photos) {
-		this.photos = photos;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
+		this.streetAddress = address;
+		this.city = city;
+		this.state = state;
+		this.zipCode = zip;
+		
 	}
 
 	public void addRole(Role role) {
 		this.roles.add(role);
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", roles=" + roles + "]";
 	}
 
 	@Transient

@@ -21,3 +21,7 @@
 	div.less-details { display: none; }
 	.hideable-column { display: table-cell; }
 }
+
+hr{
+	 background-color: black; height: 1px; border: 0; 
+}

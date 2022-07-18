@@ -18,17 +18,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sportyshoes.exceptions.ProductNotFoundException;
 import com.sportyshoes.model.Product;
+import com.sportyshoes.service.CategoryService;
 import com.sportyshoes.service.FileUploadUtil;
 import com.sportyshoes.service.ProductService;
 
 @Controller
-public class ProductController {
+public class ProductCategoryController {
 	@Autowired
-	private ProductService service;
+	private ProductService productService;
+	
+	@Autowired
+	private CategoryService categoryService;
 		
 	@GetMapping("/products")
 	public String listFirstPage(Model model) {
-		return listByPage(1, model, "category", "asc", null);
+		return listByPage(1, model, "categoryId", "asc", null);
 	}
 	
 	@GetMapping("/products/page/{pageNum}") 
@@ -38,7 +42,7 @@ public class ProductController {
 			@Param("keyword") String keyword
 			){
 				
-		Page<Product> page = service.listByPage(pageNum, sortField, sortDir, keyword);	
+		Page<Product> page = productService.listByPage(pageNum, sortField, sortDir, keyword);	
 		List<Product> listProducts = page.getContent();
 		
 		long startCount = (pageNum - 1) * ProductService.PRODUCTS_PER_PAGE + 1;
@@ -65,7 +69,7 @@ public class ProductController {
 	
 	@GetMapping("/products/new")
 	public String newProduct(Model model) {
-		List<Product> listProducts = service.listAllProducts();
+		List<Product> listProducts = productService.listAllProducts();
 		
 		model.addAttribute("product", new Product());
 		model.addAttribute("listProducts", listProducts);
@@ -82,14 +86,14 @@ public class ProductController {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			product.setImage(fileName);
 
-			Product savedProduct = service.save(product);
+			Product savedProduct = productService.save(product);
 			String uploadDir = "product-images/" + savedProduct.getId();
 			
 			FileUploadUtil.cleanDir(uploadDir);
 			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 		} else {
 			if (product.getImage().isEmpty()) product.setImage(null);
-			service.save(product);
+			productService.save(product);
 		}
 		ra.addFlashAttribute("message", "The product has been saved successfully.");
 		return "redirect:/products";
@@ -99,7 +103,7 @@ public class ProductController {
 	public String editProduct(@PathVariable(name = "id") Integer id, Model model,
 			RedirectAttributes ra) {
 		try {
-			Product product = service.get(id);
+			Product product = productService.get(id);
 			
 			model.addAttribute("product", product);
 			model.addAttribute("pageTitle", "Edit Product (ID: " + id + ")");
@@ -114,7 +118,7 @@ public class ProductController {
 	@GetMapping("/products/{id}/enabled/{status}")
 	public String updateProductEnabledStatus(@PathVariable("id") Integer id,
 			@PathVariable("status") boolean enabled, RedirectAttributes redirectAttributes) {
-		service.updateProductEnabledStatus(id, enabled);
+		productService.updateProductEnabledStatus(id, enabled);
 		String status = enabled ? "enabled" : "disabled";
 		String message = "The product ID " + id + " has been " + status;
 		redirectAttributes.addFlashAttribute("message", message);
@@ -127,7 +131,7 @@ public class ProductController {
 			Model model,
 			RedirectAttributes redirectAttributes) {
 		try {
-			service.delete(id);
+			productService.delete(id);
 			String productDir = "../product-images/" + id;
 			FileUploadUtil.removeDir(productDir);
 			

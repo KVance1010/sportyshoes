@@ -23,38 +23,36 @@ public class ProductService {
 	public static final int PRODUCTS_PER_PAGE = 5;
 
 	@Autowired
-	private ProductRepository repo;
+	private ProductRepository userRepo;
 	
 	public List<Product> listAllProducts() {
-		return (List<Product>) repo.findAll(Sort.by("category").ascending());
+		return (List<Product>) userRepo.findAll(Sort.by("category").ascending());
 	}
 	
-
 	public Page<Product> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
 		Sort sort = Sort.by(sortField);
 		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 		Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE, sort);
 		if (keyword != null) {
-			return repo.findAll(keyword, pageable);
+			return userRepo.findAll(keyword, pageable);
 		}
-
-		return repo.findAll(pageable);
+		return userRepo.findAll(pageable);
 	}
 
 	public Product save(Product product) {
-		return repo.save(product);
+		return userRepo.save(product);
 	}
 
 	public Product get(Integer id) throws ProductNotFoundException {
 		try {
-			return repo.findById(id).get();
+			return userRepo.findById(id).get();
 		} catch (NoSuchElementException ex) {
 			throw new ProductNotFoundException("Could not find any Product with ID " + id);
 		}
 	}
 
 	public String checkUnique(Integer id, String name) {
-		Product ProductByName = repo.findByName(name);
+		Product ProductByName = userRepo.findByName(name);
 		
 		if (ProductByName == null)
 			return "OK";
@@ -71,15 +69,15 @@ public class ProductService {
 	}
 
 	public void updateProductEnabledStatus(Integer id, boolean enabled) {
-		repo.updateEnabledStatus(id, enabled);
+		userRepo.updateEnabledStatus(id, enabled);
 	}
 
 	public void delete(Integer id) throws ProductNotFoundException {
-		Long countById = repo.countById(id);
+		Long countById = userRepo.countById(id);
 		if (countById == null || countById == 0) {
 			throw new ProductNotFoundException("Could not find any Product with ID " + id);
 		}
 
-		repo.deleteById(id);
+		userRepo.deleteById(id);
 	}
 }

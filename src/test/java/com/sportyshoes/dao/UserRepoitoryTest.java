@@ -31,22 +31,13 @@ public class UserRepoitoryTest {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String rawPassword = "password";
 		String encodedPassword = passwordEncoder.encode(rawPassword);
-		User userName = new User("vance@gmail.com", true, encodedPassword, "Kyle", "Vance");
+		User userName = new User("vance@gmail.com", true, encodedPassword, "Kyle", "Vance", "5102 jksdlfa",
+				"Reno", "NV", "89502");
 		userName.addRole(roleAdmin);
 		User savedUser = repo.save(userName);
 		assertThat(savedUser.getId()).isGreaterThan(0);
 	}
 	
-	@Test
-	public void testCreateNewUserWithTwoRoles() {
-		User userName = new User("jsmith@gmail.com", "password", "John", "Smith");
-		Role roleManager = new Role(4);
-		Role roleShipper = new Role(3);
-		userName.addRole(roleManager);
-		userName.addRole(roleShipper);
-		User savedUser = repo.save(userName);
-		assertThat(savedUser.getId()).isGreaterThan(0);
-	}
 	
 	@Test
 	public void testListAllUsers() {

@@ -28,7 +28,7 @@ public class WebSecurityConfig {
 				.usernameParameter("email").permitAll().and().logout().permitAll().and().rememberMe()
 				.key("AbcDefgHijKlmnOpqrs_1234567890").tokenValiditySeconds(7 * 24 * 60 * 60);
 
-	  //  http.authorizeRequests().anyRequest().permitAll();
+//	    http.authorizeRequests().anyRequest().permitAll();
 		return http.build();
 
 	}
