@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +30,7 @@ public class Category {
 	@Column(name = "category_name")
 	private String categoryName;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "category")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
 	private List<Product> products = new ArrayList<Product>();
 
 	public Category(String categoryName) {

@@ -10,13 +10,26 @@
 			<h2>Manage Products</h2>
 			<a th:href="@{/products/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
 		</div>
+
 		<div th:replace="layouts  :: search_form_and_message('/products/page/1')"></div>
 
-		<div th:if="${message != null}" class="alert alert-success text-center">
-			[[${message}]]
-		</div>
+		<form th:action="@{/products/searchbycategory}" method="get">
+			<div class="col-sm-8 mr-2">
+				<label>Category:</label>
+				<select id="id" name="id">
+					<option></option>
+					<th:block th:each="category : ${categoryList}">
+						<option th:value="${category.id}" th:text="${category.categoryName}"></option>
+					</th:block>
+				</select>
+				<input style="background-color:DodgerBlue;" type="submit">
+				<input type="hidden" name="pageNum" th:value="${pageNum}" />
+			</div>
+			<h3 th:if="${categoryName != null}">[[${categoryName}]]</h3>
+		</form>
 
-
+		
+		
 		<div class="full-details">
 			<table class="table table-bordered table-striped table-hover table-responsive-xl">
 				<thead class="thead-dark">
@@ -40,8 +53,13 @@
 							</div>
 						</td>
 						<td th:text="${product.name}"></td>
-						<td ></td>
+
+						<!-- TODO: need to fix this so that the form show the category this product belongs to -->
+						<!-- <td th:text="${product.category.categoryName == null} ? ' ' : ${product.category.categoryName}"></td> -->
+						<td th:text="${product.category.categoryName}" />
+
 						<td th:text="${product.description}"></td>
+
 						<td th:text="${product.price}"></td>
 						<td>
 							<div
@@ -82,7 +100,7 @@
 		</div>
 
 
-		<div th:replace="layouts  :: pagination('/products', 'products')"></div> 
+		<div th:replace="layouts  :: pagination('/products', 'products')"></div>
 
 		<div th:replace="layouts  :: confirm_modal"></div>
 

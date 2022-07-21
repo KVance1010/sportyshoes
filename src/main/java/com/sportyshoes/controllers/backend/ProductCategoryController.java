@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sportyshoes.exceptions.ProductNotFoundException;
+import com.sportyshoes.model.Category;
 import com.sportyshoes.model.Product;
 import com.sportyshoes.service.CategoryService;
 import com.sportyshoes.service.FileUploadUtil;
@@ -68,6 +69,16 @@ public class ProductCategoryController {
 		return "/products/products";		
 	}
 	
+	@GetMapping("/products/searchbycategory")
+	public String getByCategory(@Param("id") Integer id, Model model) {
+		Category category = categoryService.findCategoryById(id);
+		model.addAttribute("listProducts", category.getProducts());
+		model.addAttribute("categoryName", category.getCategoryName());
+		model.addAttribute("categoryList", categoryService.findAllCategories());
+		return "/products/products";
+		
+	}
+	
 	@GetMapping("/products/new")
 	public String newProduct(Model model) {
 		List<Product> listProducts = productService.listAllProducts();
@@ -83,7 +94,7 @@ public class ProductCategoryController {
 	@PostMapping("/products/save")
 	public String saveProduct(Product product, 
 			@RequestParam("fileImage") MultipartFile multipartFile,
-			RedirectAttributes ra) throws IOException {
+		RedirectAttributes ra) throws IOException {
 		if (!multipartFile.isEmpty()) {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			product.setImage(fileName);

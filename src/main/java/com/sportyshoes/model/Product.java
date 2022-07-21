@@ -2,9 +2,9 @@ package com.sportyshoes.model;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,7 +41,7 @@ public class Product {
 	@Column(nullable = false)
 	private BigDecimal price;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name= "category_id", referencedColumnName = "id")
 	private Category category;
 

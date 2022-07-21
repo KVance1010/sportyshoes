@@ -21,15 +21,14 @@
 							maxlength="128" />
 					</div>
 				</div>
-
-				<div class="form-group row">
+				
+				<div  th:if= "${product.category == null}" class="form-group row">
 					<label class="col-sm-4 col-form-label">Category:</label>
 					<div class="col-sm-8">
-						<select class="form-control" >
+						<select class="form-control" th:field = "*{category}">
 							<th:block th:each="category : ${categoryList}">
 								<option th:value="${category.id}" th:text="${category.categoryName}"></option>
 							</th:block>
-
 						</select>
 					</div>
 				</div>
