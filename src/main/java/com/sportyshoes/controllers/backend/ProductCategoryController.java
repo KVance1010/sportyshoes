@@ -32,7 +32,7 @@ public class ProductCategoryController {
 		
 	@GetMapping("/products")
 	public String listFirstPage(Model model) {
-		return listByPage(1, model, "categoryId", "asc", null);
+		return listByPage(1, model, "id", "asc", null);
 	}
 	
 	@GetMapping("/products/page/{pageNum}") 
@@ -56,7 +56,8 @@ public class ProductCategoryController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
 		model.addAttribute("currentPage", pageNum);
-		model.addAttribute("sortField", "name");
+		model.addAttribute("sortField", sortField);
+		model.addAttribute("categoryList", categoryService.findAllCategories());
 		model.addAttribute("sortDir", sortDir);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("startCount", startCount);
@@ -64,7 +65,7 @@ public class ProductCategoryController {
 		model.addAttribute("listProducts", listProducts);
 		model.addAttribute("reverseSortDir", reverseSortDir);
 		
-		return "products/products";		
+		return "/products/products";		
 	}
 	
 	@GetMapping("/products/new")
@@ -75,7 +76,7 @@ public class ProductCategoryController {
 		model.addAttribute("listProducts", listProducts);
 		model.addAttribute("pageTitle", "Create New Product");
 		
-		return "products/product_form";
+		return "/products/product_form";
 	}
 	
 	@PostMapping("/products/save")
@@ -108,7 +109,7 @@ public class ProductCategoryController {
 			model.addAttribute("product", product);
 			model.addAttribute("pageTitle", "Edit Product (ID: " + id + ")");
 			
-			return "products/product_form";			
+			return "/products/product_form";			
 		} catch (ProductNotFoundException ex) {
 			ra.addFlashAttribute("message", ex.getMessage());
 			return "redirect:/products";

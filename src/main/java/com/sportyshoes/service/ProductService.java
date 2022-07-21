@@ -26,7 +26,7 @@ public class ProductService {
 	private ProductRepository userRepo;
 	
 	public List<Product> listAllProducts() {
-		return (List<Product>) userRepo.findAll(Sort.by("category").ascending());
+		return (List<Product>) userRepo.findAll(Sort.by("id").ascending());
 	}
 	
 	public Page<Product> listByPage(int pageNum, String sortField, String sortDir, String keyword) {

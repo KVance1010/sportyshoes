@@ -24,7 +24,7 @@
 						<th>ID</th>
 						<th>Product Image</th>
 						<th th:replace="layouts  :: column_link('/products', 'name', 'Product Name', 'none')" />
-						<th th:replace="layouts :: column_link('/products', 'category', 'Category', 'none')" />
+						<th> Category </th>
 						<th>Description</th>
 						<th>Price</th>
 						<th>Enabled</th>
@@ -40,7 +40,7 @@
 							</div>
 						</td>
 						<td th:text="${product.name}"></td>
-						<td th:text="${product.category}"></td>
+						<td th:text="${product.category.categoryName}"></td>
 						<td th:text="${product.description}"></td>
 						<td th:text="${product.price}"></td>
 						<td>
@@ -81,14 +81,8 @@
 			</div>
 		</div>
 
-		<div th:if="${keyword != null}" class="text-center">
-			<span>Search result does not show products, please try another search</span>
-			<div th:replace="layouts  :: pagination('/products', 'products')"></div>
-		</div>
 
-		<th:block th:unless="${keyword != null}">
-			<div th:replace="layouts  :: pagination('/products', 'top-level products')"></div>
-		</th:block>
+	<!--	<div th:replace="layouts  :: pagination('/products', 'products')"></div> -->
 
 		<div th:replace="layouts  :: confirm_modal"></div>
 
