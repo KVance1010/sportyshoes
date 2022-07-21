@@ -23,10 +23,10 @@ public class ProductService {
 	public static final int PRODUCTS_PER_PAGE = 5;
 
 	@Autowired
-	private ProductRepository userRepo;
+	private ProductRepository prodRepo;
 	
 	public List<Product> listAllProducts() {
-		return (List<Product>) userRepo.findAll(Sort.by("id").ascending());
+		return (List<Product>) prodRepo.findAll(Sort.by("id").ascending());
 	}
 	
 	public Page<Product> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
@@ -34,25 +34,25 @@ public class ProductService {
 		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 		Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE, sort);
 		if (keyword != null) {
-			return userRepo.findAll(keyword, pageable);
+			return prodRepo.findAll(keyword, pageable);
 		}
-		return userRepo.findAll(pageable);
+		return prodRepo.findAll(pageable);
 	}
 
 	public Product save(Product product) {
-		return userRepo.save(product);
+		return prodRepo.save(product);
 	}
 
 	public Product get(Integer id) throws ProductNotFoundException {
 		try {
-			return userRepo.findById(id).get();
+			return prodRepo.findById(id).get();
 		} catch (NoSuchElementException ex) {
 			throw new ProductNotFoundException("Could not find any Product with ID " + id);
 		}
 	}
 
 	public String checkUnique(Integer id, String name) {
-		Product ProductByName = userRepo.findByName(name);
+		Product ProductByName = prodRepo.findByName(name);
 		
 		if (ProductByName == null)
 			return "OK";
@@ -69,15 +69,15 @@ public class ProductService {
 	}
 
 	public void updateProductEnabledStatus(Integer id, boolean enabled) {
-		userRepo.updateEnabledStatus(id, enabled);
+		prodRepo.updateEnabledStatus(id, enabled);
 	}
 
 	public void delete(Integer id) throws ProductNotFoundException {
-		Long countById = userRepo.countById(id);
+		Long countById = prodRepo.countById(id);
 		if (countById == null || countById == 0) {
 			throw new ProductNotFoundException("Could not find any Product with ID " + id);
 		}
 
-		userRepo.deleteById(id);
+		prodRepo.deleteById(id);
 	}
 }

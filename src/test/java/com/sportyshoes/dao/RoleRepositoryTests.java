@@ -33,10 +33,8 @@ public class RoleRepositoryTests {
 	public void testCreationRestRoles() {
 		Role roleManager = new Role("Manager", "manage product price, customers"
 				+ "shipping, orders, and sales reports");	
-		Role roleShipper = new Role("Shipper", "view products, view orders"
-				+ "and update order status");
 		Role roleCustomer = new Role("Customer", "customer roles");
-		repo.saveAll(List.of( roleShipper, roleManager, roleCustomer));
+		repo.saveAll(List.of( roleManager, roleCustomer));
 	}
 
 }

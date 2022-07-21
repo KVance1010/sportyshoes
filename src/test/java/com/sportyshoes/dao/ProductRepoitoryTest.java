@@ -38,19 +38,18 @@ public class ProductRepoitoryTest {
 	@Test
 	public void testCreateNewproduct() {
 		Category cat = entityManager.find(Category.class, 1);
-		//Category cat = new Category("Mens Shoes");
-	//	Product product = new Product();
-//		product.setDescription("mens Running Shoes");
-//		product.setEnabled(true);
-//		product.setName("Mens Running Shoes");
-//		product.setPrice(new BigDecimal(150.0));
-//		product.setCategory(cat);
-//		prodRepo.save(product);
+		Product product = new Product();
+		product.setDescription("mens Running Shoes");
+		product.setEnabled(true);
+		product.setName("Mens Running Shoes");
+		product.setPrice(new BigDecimal(150.0));
+		product.setCategory(cat);
+		prodRepo.save(product);
 		
 		Product product1 = new Product();
-		product1.setDescription("Mens Dress Shoes");
+		product1.setDescription("Non Slip Work Shoes");
 		product1.setEnabled(true);
-		product1.setName("Mens Dress Shoes");
+		product1.setName("Mens Work Shoes");
 		product1.setPrice(new BigDecimal(250.0));
 		product1.setCategory(cat);
 		prodRepo.save(product1);

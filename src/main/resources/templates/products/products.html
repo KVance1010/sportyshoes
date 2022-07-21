@@ -40,7 +40,7 @@
 							</div>
 						</td>
 						<td th:text="${product.name}"></td>
-						<td th:text="${product.category.categoryName}"></td>
+						<td ></td>
 						<td th:text="${product.description}"></td>
 						<td th:text="${product.price}"></td>
 						<td>
@@ -82,7 +82,7 @@
 		</div>
 
 
-	<!--	<div th:replace="layouts  :: pagination('/products', 'products')"></div> -->
+		<div th:replace="layouts  :: pagination('/products', 'products')"></div> 
 
 		<div th:replace="layouts  :: confirm_modal"></div>
 

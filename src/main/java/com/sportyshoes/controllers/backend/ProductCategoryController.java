@@ -74,6 +74,7 @@ public class ProductCategoryController {
 		
 		model.addAttribute("product", new Product());
 		model.addAttribute("listProducts", listProducts);
+		model.addAttribute("categoryList", categoryService.findAllCategories());
 		model.addAttribute("pageTitle", "Create New Product");
 		
 		return "/products/product_form";
@@ -107,6 +108,7 @@ public class ProductCategoryController {
 			Product product = productService.get(id);
 			
 			model.addAttribute("product", product);
+			model.addAttribute("categoryList", categoryService.findAllCategories());
 			model.addAttribute("pageTitle", "Edit Product (ID: " + id + ")");
 			
 			return "/products/product_form";			
@@ -133,7 +135,7 @@ public class ProductCategoryController {
 			RedirectAttributes redirectAttributes) {
 		try {
 			productService.delete(id);
-			String productDir = "../product-images/" + id;
+			String productDir = "product-images/" + id;
 			FileUploadUtil.removeDir(productDir);
 			
 			redirectAttributes.addFlashAttribute("message", 
