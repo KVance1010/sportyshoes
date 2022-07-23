@@ -28,8 +28,8 @@
 			<h3 th:if="${categoryName != null}">[[${categoryName}]]</h3>
 		</form>
 
-		
-		
+
+
 		<div class="full-details">
 			<table class="table table-bordered table-striped table-hover table-responsive-xl">
 				<thead class="thead-dark">
@@ -54,9 +54,12 @@
 						</td>
 						<td th:text="${product.name}"></td>
 
-						<!-- TODO: need to fix this so that the form show the category this product belongs to -->
-						<!-- <td th:text="${product.category.categoryName == null} ? ' ' : ${product.category.categoryName}"></td> -->
-						<td th:text="${product.category.categoryName}" />
+<!--                    TODO: fix this so that if category is null it doesnt crash the progarm
+						<td th:if="${product.category.categoryName == null}"></td>
+						<td th:if="${product.category.categoryName != null}">[[${product.category.categoryName}]]</td>
+						<td th:text="${product.category.categoryName != null} ? ${product.category.categoryName} : ' '"></td>  
+-->						
+						<td th:text="${product.category.categoryName}" /> 
 
 						<td th:text="${product.description}"></td>
 

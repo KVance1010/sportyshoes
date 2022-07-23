@@ -92,9 +92,14 @@ public class ProductCategoryController {
 	}
 	
 	@PostMapping("/products/save")
-	public String saveProduct(Product product, 
-			@RequestParam("fileImage") MultipartFile multipartFile,
+	public String saveProduct(Product product,
+			@RequestParam("fileImage") MultipartFile multipartFile, @RequestParam ("categoryId") Integer categoryId,
 		RedirectAttributes ra) throws IOException {
+
+		if(categoryId > 0) {
+			product.setCategory(categoryService.findCategoryById(categoryId));
+		}
+			
 		if (!multipartFile.isEmpty()) {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			product.setImage(fileName);
@@ -108,9 +113,11 @@ public class ProductCategoryController {
 			if (product.getImage().isEmpty()) product.setImage(null);
 			productService.save(product);
 		}
+		
 		ra.addFlashAttribute("message", "The product has been saved successfully.");
 		return "redirect:/products";
 	}
+	
 	
 	@GetMapping("/products/edit/{id}")
 	public String editProduct(@PathVariable(name = "id") Integer id, Model model,
