@@ -6,18 +6,14 @@
 <body>
 	<div class="container-fluid">
 		<div th:replace="layouts :: menu"></div>
-		<div>
-			<h2>Manage Products</h2>
-			<a th:href="@{/products/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
-		</div>
 
-		<div th:replace="layouts  :: search_form_and_message('/products/page/1')"></div>
+		<div th:replace="layouts  :: search_form_and_message('/store/page/1')"></div>
 
-		<form th:action="@{/products/searchbycategory}" method="get">
+		<form th:action="@{/store/searchbycategory}" method="get">
 			<div class="col-sm-8 mr-2">
 				<label>Category:</label>
 				<select id="id" name="id">
-					<option value = 1 ></option>
+					<option value=1></option>
 					<th:block th:each="category : ${categoryList}">
 						<option th:value="${category.id}" th:text="${category.categoryName}"></option>
 					</th:block>
@@ -36,12 +32,12 @@
 					<tr>
 						<th>ID</th>
 						<th>Product Image</th>
-						<th th:replace="layouts  :: column_link('/products', 'name', 'Product Name', 'none')" />
+						<th th:replace="layouts  :: column_link('/store', 'name', 'Product Name', 'none')" />
 						<th> Category </th>
 						<th>Description</th>
 						<th>Price</th>
-						<th>Enabled</th>
-						<th></th>
+						<th>Available</th>
+						<th>Add to Cart</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -54,12 +50,12 @@
 						</td>
 						<td th:text="${product.name}"></td>
 
-<!--                    TODO: fix this so that if category is null it doesnt crash the progarm
+						<!--                    TODO: fix this so that if category is null it doesnt crash the progarm
 						<td th:if="${product.category.categoryName == null}"></td>
 						<td th:if="${product.category.categoryName != null}">[[${product.category.categoryName}]]</td>
 						<td th:text="${product.category.categoryName != null} ? ${product.category.categoryName} : ' '"></td>  
--->						
-						<td th:text="${product.category.categoryName}" /> 
+-->
+						<td th:text="${product.category.categoryName}" />
 
 						<td th:text="${product.description}"></td>
 
@@ -69,10 +65,10 @@
 								th:replace="layouts  :: status(${product.enabled}, 'product', '/products/' + ${product.id})" />
 						</td>
 						<td>
-							<div th:replace="layouts  :: edit('product', '/products/edit/' + ${product.id})" />
-							&nbsp;
-							<div
-								th:replace="layouts  :: delete('product', ${product.id}, '/products/delete/' + ${product.id}, true)" />
+							<th:block>
+								<a th:href="@{/store/addtocart}"> <span
+										class="fa fa-cart-plus fa-2x icon-dark m-2 link-add"></span> </a>
+							</th:block>
 						</td>
 
 					</tr>
@@ -90,34 +86,35 @@
 						<div
 							th:replace="layouts  :: status(${product.enabled}, 'product', '/products/' + ${product.id})">
 						</div>
-						&nbsp;
-						<div th:replace="layouts  :: edit('product', '/products/edit/' + ${product.id})"></div>
-						&nbsp;
-						<div
-							th:replace="layouts  :: delete('product', ${product.id}, '/products/delete/' + ${product.id}, true)">
-						</div>
+						<br>
+						<th:block>
+							<a th:href="@{/store/addtocart/${product.id}}"> <span
+									class="fa fa-cart-plus fa-2x icon-dark m-2 link-add"></span> </a>
+						</th:block>
 					</div>
 				</div>
-				<div>&nbsp;</div>
+				<br>
 			</div>
 		</div>
 
 
-		<div th:replace="layouts  :: pagination('/products', 'products')"></div>
+		<div th:replace="layouts  :: pagination('/store', 'products')"></div>
 
 		<div th:replace="layouts  :: confirm_modal"></div>
 
 		<div th:replace="layouts  :: footer"></div>
 
 	</div>
+
+	<!-- add a showConfirmModal -->
 	<script th:src="@{/js/common_list.js}"></script>
 	<script type="text/javascript">
-		moduleUrl = "[[@{/products}]]";
+		moduleUrl = "[[@{/store}]]";
 
 		$(document).ready(function () {
-			$(".link-delete").on("click", function (e) {
+			$(".link-add").on("click", function (e) {
 				e.preventDefault();
-				showDeleteConfirmModal($(this), 'product');
+				showConfirmModal($(this), 'product');
 			});
 		});
 	</script>

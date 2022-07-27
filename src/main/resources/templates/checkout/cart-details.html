@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf.org.thymeleaf-extras-springsecurity5">
 
-<head th:replace="layouts :: page_head('login-Admin')" />
+<head th:replace="layouts :: page_head('Check Out')" />
 
 <body>
 	<div class="container-fluid">
@@ -11,16 +11,23 @@
 		<div th:replace="layouts :: menu"></div>
 
 		<!-- logout button -->
-		<form th:action="@{/logout}" method="post" th:hidden=true name="logoutForm">
+		<form th:action="@{/checkout}" method="post" >
+		
+		<div>
+			<h2>Cart Details</h2>
+			
+			
+			Welcome
+			
+		</div>
+		
+		
+		
+		
 			<input type="submit" />
 		</form>
 
-		<div>
-			<h2>Shopme Control Panel</h2>
-			Welcome
-			<a th:href="@{/account}" sec:authentication="principal.fullname"></a>
-			<span sec:authentication="principal.authorities"></span>
-		</div>
+		
 
 		<!-- footer -->
 		<div th:replace="layouts :: footer"></div>

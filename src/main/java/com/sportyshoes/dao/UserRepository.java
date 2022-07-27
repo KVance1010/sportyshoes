@@ -22,4 +22,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query("SELECT u FROM User u WHERE CONCAT(u.id, ' ', u.email, ' ', u.firstName, ' '," + " u.lastName) LIKE %?1%")
 	public Page<User> findAll(String keyword, Pageable pageable);
+	
+//	@Query("SELECT u FROM User u LEFT JOIN u.roles r WHERE r.id = :id AND CONCAT(u.id, ' ', u.email, ' ', u.firstName, ' '," + " u.lastName) LIKE %?1% ")
+//	public Page<User> findAll(Optional<String> keyword , Pageable pageable, Integer id);
+	
+	@Query("SELECT u FROM User u LEFT JOIN u.roles r WHERE r.id = :id")
+	public Page<User> findAll(Pageable pageable, Integer id);
 }

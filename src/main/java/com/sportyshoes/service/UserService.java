@@ -32,9 +32,15 @@ public class UserService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	private Integer customerId = 3;
 
 	public User getByEmail(String email) {
 		return userRepo.getUserByEmail(email);
+	}
+	
+	public Role findRoleById(Integer id) {
+		return roleRepo.findById(id).get();
 	}
 
 	public List<User> listAll() {
@@ -50,6 +56,17 @@ public class UserService {
 		}
 
 		return userRepo.findAll(pageable);
+	}
+	
+	public Page<User> listByPageCustomer(int pageNum, String sortField, String sortDir, String keyword) {
+		Sort sort = Sort.by(sortField);
+		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+		Pageable pageable = PageRequest.of(pageNum - 1, USERS_PER_PAGE, sort);
+		if (keyword != null) {
+		//	return userRepo.findAll(keyword, pageable);
+		}
+
+		return userRepo.findAll(pageable, customerId);
 	}
 
 	public List<Role> listRoles() {

@@ -23,7 +23,7 @@ import com.sportyshoes.service.FileUploadUtil;
 import com.sportyshoes.service.UserService;
 
 @Controller
-public class UserController {
+public class userController {
 	@Autowired
 	private UserService service;
 	
@@ -37,20 +37,15 @@ public class UserController {
 			@PathVariable(name = "pageNum") int pageNum, Model model,
 			@Param("sortField") String sortField, @Param("sortDir") String sortDir,
 			@Param("keyword") String keyword
-			) {
-
-		
+			) {	
 		Page<User> page = service.listByPage(pageNum, sortField, sortDir, keyword);		
-		List<User> listUsers = page.getContent();
-		
+		List<User> listUsers = page.getContent();		
 		long startCount = (pageNum - 1) * UserService.USERS_PER_PAGE + 1;
 		long endCount = startCount + UserService.USERS_PER_PAGE - 1;
 		if (endCount > page.getTotalElements()) {
 			endCount = page.getTotalElements();
-		}
-		
-		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
-		
+		}		
+		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";		
 		model.addAttribute("currentPage", pageNum);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("startCount", startCount);
@@ -59,12 +54,11 @@ public class UserController {
 		model.addAttribute("listUsers", listUsers);
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("sortDir", sortDir);
 		model.addAttribute("reverseSortDir", reverseSortDir);
-		model.addAttribute("keyword", keyword);
-		
+		model.addAttribute("keyword", keyword);	
 		return "/users/users";		
 	}
-	
 	
 	@GetMapping("/users/new")
 	public String newUser(Model model) {
