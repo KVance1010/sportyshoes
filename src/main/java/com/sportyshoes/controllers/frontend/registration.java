@@ -1,4 +1,4 @@
-package com.sportyshoes.controllers.backend;
+package com.sportyshoes.controllers.frontend;
 
 import java.io.IOException;
 
@@ -30,7 +30,7 @@ public class registration {
 		user.setEnabled(true);
 		model.addAttribute("user", user);
 		model.addAttribute("pageTitle", "New User");
-		return "registration";
+		return "/customers/registration";
 	}
 	
 	@PostMapping("/registration/save")
@@ -58,7 +58,7 @@ public class registration {
 
 		redirectAttributes.addFlashAttribute("message", "The user has been saved successfully.");
 
-		return "redirect:/logout";
+		return "redirect:/login";
 	}
 
 

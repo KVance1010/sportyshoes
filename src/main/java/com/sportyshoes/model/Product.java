@@ -1,7 +1,5 @@
 package com.sportyshoes.model;
 
-import java.math.BigDecimal;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,13 +37,14 @@ public class Product {
 	private boolean enabled;
 	
 	@Column(nullable = false)
-	private BigDecimal price;
+	private float price;
+	
 
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name= "category_id", referencedColumnName = "id")
 	private Category category;
 
-	public Product(String name, Category category, String description, String image, boolean enabled, BigDecimal price) {
+	public Product(String name, Category category, String description, String image, boolean enabled, float price) {
 		this.name = name;
 		this.category = category;
 		this.description = description;

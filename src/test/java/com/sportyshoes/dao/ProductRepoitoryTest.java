@@ -1,7 +1,5 @@
 package com.sportyshoes.dao;
 
-import java.math.BigDecimal;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -40,7 +38,7 @@ public class ProductRepoitoryTest {
 		product.setDescription("mens Running Shoes");
 		product.setEnabled(true);
 		product.setName("Mens Running Shoes");
-		product.setPrice(new BigDecimal(150.0));
+		product.setPrice(150.0f);
 		product.setCategory(category);
 		prodRepo.save(product);
 
@@ -48,7 +46,7 @@ public class ProductRepoitoryTest {
 		product1.setDescription("Non Slip Work Shoes");
 		product1.setEnabled(true);
 		product1.setName("Mens Work Shoes");
-		product1.setPrice(new BigDecimal(250.0));
+		product1.setPrice(250.0f);
 		product1.setCategory(category);
 		prodRepo.save(product1);
 
@@ -63,8 +61,8 @@ public class ProductRepoitoryTest {
 		product.setEnabled(true);
 		product.setName("Colorfull socks");
 		product.setImage(null);
-		product.setPrice(new BigDecimal(15.0));
-	    product.setCategory(category);
+		product.setPrice(15.0f);
+		product.setCategory(category);
 		prodRepo.save(product);
 
 //		category.addProduct(product);

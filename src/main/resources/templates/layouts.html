@@ -12,7 +12,14 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-	<script type="text/javascript" th:src="@{/js/common.js}"></script>
+	<script type="text/javascript" th:src="@{/js/add_to_cart.js}"></script>
+	<script type="text/javascript" th:src="@{/js/common_form.js}"></script>
+	<script type="text/javascript" th:src="@{/js/common_list.js}"></script>
+	<script type="text/javascript" th:src="@{/js/common_modal.js}"></script>
+	<script type="text/javascript" th:src="@{/js/jquery.number.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/quantity_control.js}"></script>
+	<script type="text/javascript" th:src="@{/js/return_order.js}"></script>
+	<script type="text/javascript" th:src="@{/js/shopping_cart.js}"></script>
 </head>
 
 <body>
@@ -64,10 +71,10 @@
 				</ul>
 			</div>
 			<div style="align-items: right;">
-			<th:block sec:authorize="hasAnyAuthority('Customer')">
-				<a th:href="@{/store/cart}"> <span class="fa fa-shopping-cart fa-2x icon-silver m-2" ></span> </a>
-			</th:block>
-				
+				<th:block sec:authorize="hasAnyAuthority('Customer')">
+					<a th:href="@{/store/cart}"> <span class="fa fa-shopping-cart fa-2x icon-silver m-2"></span> </a>
+				</th:block>
+
 				<a th:href="@{/account}"> <span class="fas fa-user fa-2x icon-silver"></span> </a>
 			</div>
 			<div class="nav-item dropdown">
@@ -212,6 +219,24 @@
 		<div th:if="${message != null}" class="alert alert-success text-center">
 			[[${message}]]
 		</div>
+	</div>
+
+	<!-- product quantity control-->
+	<div th:fragment="quantity_control(quantityValue, productId)">
+		<nav>
+			<ul class="pagination">
+				<li class="page-item">
+					<a class="page-link linkMinus" th:pid="${productId}" href=""><b>-</b></a>
+				</li>
+				<li class="page-item">
+					<input type="text" th:value="${quantityValue}" th:id="'quantity' + ${productId}"
+						onkeydown="return false;" class="form-control text-center" style="width: 55px" />
+				</li>
+				<li class="page-item">
+					<a class="page-link linkPlus" th:pid="${productId}" href=""><b>+</b></a>
+				</li>
+			</ul>
+		</nav>
 	</div>
 
 	<!-- footer -->

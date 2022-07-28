@@ -33,7 +33,12 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	// this allows customers to be show in user search
 	private Integer customerId = 3;
+	
+	public User findById(Integer id) {
+		return userRepo.findById(id).get();
+	}
 
 	public User getByEmail(String email) {
 		return userRepo.getUserByEmail(email);
